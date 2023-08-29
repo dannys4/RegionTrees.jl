@@ -23,7 +23,7 @@ end
 end
 
 @inline isleaf(cell::Cell) = cell.children === nothing
-@inline children(cell::Cell) = cell.children
+@inline AbstractTrees.children(cell::Cell) = isnothing(cell.children) ? () : cell.children
 @inline parent(cell::Cell) = cell.parent
 @inline center(cell::Cell) = center(cell.boundary)
 @inline vertices(cell::Cell) = vertices(cell.boundary)
@@ -130,3 +130,12 @@ function allparents(cell::Cell)
         end
     end
 end
+
+AbstractTrees.nodevalue(n::Cell) = n.data
+
+AbstractTrees.ParentLinks(::Type{<:Cell}) = StoredParents()
+
+AbstractTrees.parent(n::Cell) = n.parent
+
+AbstractTrees.NodeType(::Type{<:Cell{Data,N,T,L}}) where {Data,N<:Int,T,L<:Int} = HasNodeType()
+AbstractTrees.nodetype(::Type{<:Cell{Data,N,T,L}}) where {Data,N<:Int,T,L<:Int} = Cell{Data,N,T,L}

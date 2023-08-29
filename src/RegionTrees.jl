@@ -4,11 +4,12 @@ using StaticArrays
 import StaticArrays: similar_type, Size
 using IterTools: chain
 import Base: show, size, getindex, convert, parent, @pure
+import AbstractTrees: children
+using AbstractTrees
 export Cell,
        split!,
        isleaf,
        findleaf,
-       children,
        parent,
        child_boundary,
        HyperRectangle,
